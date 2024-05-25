@@ -1,4 +1,4 @@
-g#Packages required
+#Packages required
 from googleapiclient.discovery import build
 import mysql.connector
 import pandas as pd
@@ -274,17 +274,11 @@ def fetch_all_data(channel_id):
 def main():
     
     st.sidebar.header(':red[MENU]')
-    option=st.sidebar.radio(":black[Select option]",['Home','Queries'])
+    option=st.sidebar.radio(":black[Select option]",['Home','Data Collection','Data Analysis'])
     with st.sidebar:
-        st.subheader(':red[SKILLS TAKE AWAY]')
-        st.caption(':black[Python Scripting]')
-        st.caption(':black[Pandas DataFrame]')
-        st.caption(':black[Data Extraction]')
-        st.caption(':black[Youtube API Integration]')
-        st.caption(':black[Streamlit Web Application]')
-        st.caption(':black[Data Management using MySQL]')
-        st.write('\n')
+       
         st.write('-----')
+        
         st.markdown(
     """
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -312,9 +306,38 @@ def main():
         st.subheader(':black[2024-NG]')   
 
     if option=="Home":
-            st.subheader(':brown[YOUTUBE  DATA  HARVESTING  &  WAREHOUSING]', divider= 'red')
+            st.title(':red[You]Tube :red[Data Harvesting & Warehousing using SQL and Streamlit]')
+            st.write('---')
+            st.subheader(':red[Domain :] Social Media')
+            st.subheader(':red[Overview :]')
+            st.markdown('''In this project, I developed a sophisticated dashboard using Streamlit to retrieve and visualize YouTube channel data through the YouTube API. 
+                        The data is warehoused in an SQL database managed by XAMPP, facilitating efficient querying and analysis. 
+                        This project enabled the visualization of data within the Streamlit app, uncovering valuable insights and trends in YouTube channel performance.''')
+            st.subheader(':red[Skill Take Away :]')
+            st.markdown(''' Python scripting,Data Collection,API integration,Data Management using SQL,Streamlit''')
+            st.subheader(':red[About :]')
+            st.markdown('''Hello! I'm Nithesh Goutham, a BE graduate with a strong interest in data science and analytics. Currently, I'm an IT professional with 2 years of experience, 
+                        and I'm excited to share my first project: "YouTube Data Harvesting and Warehousing Using SQL and Streamlit." In this project, I delved into the world of YouTube data to extract meaningful insights.
+                         This experience has fueled my passion for data-driven decision-making and enhanced my understanding of data extraction techniques and database management.''')
+            st.subheader(':red[Contact:]')
+            st.markdown('###### Email : nitheshgoutham@gmail.com')
+            st.markdown('###### Github : https://github.com/NitheshGoutham')
+            st.markdown('###### Website : https://digital-cv-using-streamlit.onrender.com/')
+            st.markdown('###### Linkedin: https://www.linkedin.com/in/nithesh-goutham-m-0b0514205/')
+           
+
+    elif option=="Data Collection":
+            st.header(':white[Data Collection and Upload]', divider= 'red')
+            st.markdown('''
+                - Enter channel ID in the input field.
+                - Clicking the 'Get Channel Details' button will display an overview of youtube channel.
+                ''')
+            st.markdown('''
+                :red[note:] ***you can get the channel ID :***
+                open youtube - go to any channel - go to about - share channel - copy the channel ID''')
+            st.write( "-----")
             channel_id = st.text_input("Enter Channel ID")
-            
+
             if st.button("Get Channel Details"):
                 details = fetch_all_data(channel_id)
                 
@@ -330,8 +353,8 @@ def main():
                 st.subheader('Playlist Details')
                 st.write(details["playlist_details"])
             
-    elif option == "Queries":
-        st.header("Queries")
+    elif option == "Data Analysis":
+        st.header("Data Analysis",divider= 'red')
 
         questions = [
                     "1. What are the names of all the videos and their corresponding channels?",
@@ -417,6 +440,7 @@ def main():
                     data = cursor.fetchall()
                     df=pd.DataFrame(data,columns=['Title','Channel_Name','Comments'])
                     st.write(df)
+                    
             
 if __name__ == "__main__":
     main()
