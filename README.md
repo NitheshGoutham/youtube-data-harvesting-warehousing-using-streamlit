@@ -1,19 +1,25 @@
 # youtube-data-harvesting-warehousing-using-streamlit
 YouTube Data Harvesting and Warehousing using SQL and Streamlit
+
 📘 Introduction
-The project about Building a simple dashboard or UI using Streamlit.
-Retrieve YouTube channel data with the help of YouTube API.
-Stored the data in SQL database(warehousing),with the help of XAMPP control panel.
-enabling querying of the data using SQL and Visualize the data within the Streamlit.
+
+-The project about Building a simple dashboard or UI using Streamlit.
+-Retrieve YouTube channel data with the help of YouTube API.
+-Stored the data in SQL database(warehousing),with the help of XAMPP control panel.
+-enabling querying of the data using SQL and Visualize the data within the Streamlit.
+
 Domain : 📱 Social Media
+
 🎨 Skills Takeaway :
+
 Python scripting, Data Collection, Streamlit, API integration, Data Management using SQL
 
 📘 Overview
 🌾Data Harvesting:
 Utilizing the YouTube API to collect data such as video details, channel information, playlists, and comments.
+
 📥 Data Storage:
-Setting up a local MySQL database using XAMPP.
+-Setting up a local MySQL database using XAMPP.
 Creating tables to store the harvested YouTube data.
 Using SQL scripts to insert the collected data into the database.
 📊 Data Analysis and Visualization:
