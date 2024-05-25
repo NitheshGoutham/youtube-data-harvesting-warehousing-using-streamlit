@@ -65,9 +65,8 @@ Enter a YouTube channel ID or name in the input field in Data collection option 
 Click the "View Details" button to fetch and display channel information.
 Click the "Upload to MySQL" button to store channel data in the SQL database.
 Select Analysis and Visualization options from the sidebar menu to analyze and visualize data.
-Demo Video:
-YT URL: https://youtu.be/qsHF35eShKk
+
 
 Contact
-LINKEDIN : www.linkedin.com/in/gokul-m-j17/
-EMAIL:gokulgokul6847@gmail.com
+LINKEDIN : https://www.linkedin.com/in/nithesh-goutham-m-0b0514205/
+EMAIL:nithesgoutham2000@gmail.com
