@@ -65,7 +65,9 @@ The data collection process involved retrieving various data points from YouTube
 - Click the "Get Channel Details" button to fetch and display channel information.
 
 
-Contact
+Contact:
+
+
 LINKEDIN : https://www.linkedin.com/in/nithesh-goutham-m-0b0514205/
 WEBSITE : https://digital-cv-using-streamlit.onrender.com/
 EMAIL:nithesgoutham2000@gmail.com
