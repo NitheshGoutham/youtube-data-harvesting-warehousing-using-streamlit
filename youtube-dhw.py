@@ -1,6 +1,9 @@
 #Packages required
 from googleapiclient.discovery import build
-import mysql.connector
+from googleapiclient.errors import HttpError
+import mysql.connector 
+from mysql.connector import MySQLConnection
+from mysql.connector import Error as MySQLError
 import pandas as pd
 import streamlit as st
 from datetime import datetime,timedelta
@@ -151,11 +154,14 @@ def Get_Video_Details(Video_id):
             iso_datetime = Data['Publish_Date']
             parsed_datetime = datetime.fromisoformat(iso_datetime.replace('Z', '+00:00'))
             mysql_published_date = parsed_datetime.strftime('%Y-%m-%d %H:%M:%S')
-
+            
+        
         cursor.execute("INSERT INTO video_details(channel_name, channel_id, video_id, title ,tags ,thumbnail , description, published_date, duration, views, likes, dislikes, comments) VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s, %s,%s,%s,%s)",
                 (Data['channel_Name'], Data['Channel_Id'], Data['Video_Id'],Data['Title'],Data['Tags'], Data['Thumbnail'], Data['Description'],mysql_published_date, sql_duration, Data['Views'], Data['Likes'], Data['Dislikes'], Data['Comments']))
-
-        mydb.commit()        
+       
+    
+        mydb.commit()    
+            
     return Video_List
 
 #Get Comment Details
@@ -311,8 +317,8 @@ def main():
             st.subheader(':red[Domain :] Social Media')
             st.subheader(':red[Overview :]')
             st.markdown('''In this project, I developed a sophisticated dashboard using Streamlit to retrieve and visualize YouTube channel data through the YouTube API. 
-                        The data is warehoused in an SQL database managed by XAMPP, facilitating efficient querying and analysis. 
-                        This project enabled the visualization of data within the Streamlit app, uncovering valuable insights and trends in YouTube channel performance.''')
+                        The data is warehoused in an SQL database, facilitating efficient querying and analysis.
+                         This project enabled the visualization of data within the Streamlit app, uncovering valuable insights and trends in YouTube channel performance.''')
             st.subheader(':red[Skill Take Away :]')
             st.markdown(''' Python scripting,Data Collection,API integration,Data Management using SQL,Streamlit''')
             st.subheader(':red[About :]')
@@ -320,7 +326,7 @@ def main():
                         and I'm excited to share my first project: "YouTube Data Harvesting and Warehousing Using SQL and Streamlit." In this project, I delved into the world of YouTube data to extract meaningful insights.
                          This experience has fueled my passion for data-driven decision-making and enhanced my understanding of data extraction techniques and database management.''')
             st.subheader(':red[Contact:]')
-            st.markdown('###### Email : nitheshgoutham@gmail.com')
+            st.markdown('###### Email : nitheshgoutham2000@gmail.com')
             st.markdown('###### Github : https://github.com/NitheshGoutham')
             st.markdown('###### Website : https://digital-cv-using-streamlit.onrender.com/')
             st.markdown('###### Linkedin: https://www.linkedin.com/in/nithesh-goutham-m-0b0514205/')
@@ -339,19 +345,38 @@ def main():
             channel_id = st.text_input("Enter Channel ID")
 
             if st.button("Get Channel Details"):
-                details = fetch_all_data(channel_id)
-                
-                st.subheader('Channel Details')
-                st.write(details["channel_details"])
+                with st.spinner('Extraction in progress...'):
+                    try:
+                        details = fetch_all_data(channel_id)
+                        
+                        st.subheader('Channel Details')
+                        st.write(details["channel_details"])
 
-                st.subheader('Video Details')
-                st.write(details["video_data"])
+                        st.subheader('Video Details')
+                        st.write(details["video_data"])
 
-                st.subheader('Comment Details')
-                st.write(details["comment_details"])
+                        st.subheader('Comment Details')
+                        st.write(details["comment_details"])
 
-                st.subheader('Playlist Details')
-                st.write(details["playlist_details"])
+                        st.subheader('Playlist Details')
+                        st.write(details["playlist_details"])
+
+                    except HttpError as e:
+                        if e.resp.status == 403 and e.error_details[0]["reason"] == 'quotaExceeded':
+                            st.error("API Quota exceeded. Please try again later.")
+                        else:
+                            st.error(f"An HTTP error occurred: {e}")
+                    except ValueError as e:
+                        st.error(f"{e}")
+                    except MySQLError as e:
+                        if '1062' in str(e): 
+                    # Check if the error message contains the code for duplicate entry error
+                            st.error("It's already exists, try with another URL")
+                        else:
+                            st.error(f"Database error: {e}")
+                    except Exception as e:
+                        st.error(f"Please ensure to give a valid channel ID. Error: {e}")
+                    
             
     elif option == "Data Analysis":
         st.header("Data Analysis",divider= 'red')
